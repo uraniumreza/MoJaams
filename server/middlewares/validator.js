@@ -1,21 +1,19 @@
-const Joi = require("joi");
+const Joi = require('joi');
 const { ErrorHandler } = require('../services/error');
 
-const validator = (schema, property) => {
+const validator = (schema, property) => (req, res, next) => {
   try {
-    return (req, res, next) => {
-      const { error } = Joi.validate(req[property], schema);
-      const valid = error == null;
+    const { error } = Joi.validate(req[property], schema);
+    const valid = error == null;
 
-      if (valid) {
-        next();
-      } else {
-        const { details } = error;
-        const message = details.map(i => i.message).join(",");
+    if (valid) {
+      next();
+    } else {
+      const { details } = error;
+      const message = details.map((i) => i.message).join(',');
 
-        throw new ErrorHandler(422, message);
-      }
-    };
+      throw new ErrorHandler(422, message);
+    }
   } catch (error) {
     next(error);
   }

@@ -1,16 +1,13 @@
-const Item = require('../models').Item;
+const { Item } = require('../models');
 
-const createAnItem = async (name) => {
-  return Item.create({
-    name: name,
+const createAnItem = async (name) =>
+  Item.create({
+    name,
   });
-};
 
-const getAllItems = async () => {
-  return Item.findAll();
-};
+const getAllItems = async () => Item.findAll();
 
 module.exports = {
   createAnItem,
   getAllItems,
-}
+};

@@ -1,7 +1,8 @@
 const express = require('express');
 const itemsController = require('../controllers').items;
-const validator = require('../middlewares').validator;
+const { validator } = require('../middlewares');
 const itemSchema = require('../services/schemas').item;
+
 const router = express.Router();
 
 router

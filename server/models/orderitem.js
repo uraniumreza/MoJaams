@@ -1,26 +1,29 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const OrderItem = sequelize.define('OrderItem', {
-    orderId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  const OrderItem = sequelize.define(
+    'OrderItem',
+    {
+      orderId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      itemVariantId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'pending',
+      },
     },
-    itemVariantId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1,
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'pending',
-    }
-  }, {});
-  OrderItem.associate = function(models) {
+    {},
+  );
+  OrderItem.associate = (models) => {
     OrderItem.belongsTo(models.Order, {
       foreignKey: 'orderId',
       onDelete: 'CASCADE',
@@ -28,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     OrderItem.belongsTo(models.ItemVariant, {
       foreignKey: 'itemVariantId',
       onDelete: 'CASCADE',
-    })
+    });
   };
   return OrderItem;
 };

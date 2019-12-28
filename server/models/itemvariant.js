@@ -1,20 +1,23 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const ItemVariant = sequelize.define('ItemVariant', {
-    itemId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+  const ItemVariant = sequelize.define(
+    'ItemVariant',
+    {
+      itemId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      variantId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'active',
+      },
     },
-    variantId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'active',
-    },
-  }, {});
+    {},
+  );
 
   ItemVariant.associate = (models) => {
     ItemVariant.belongsTo(models.Item, {

@@ -15,7 +15,7 @@ exports.create = async (req, res) => {
 exports.list = async (req, res) => {
   try {
     const allItems = await getAllItems();
-    res.status(200).send(allItems)
+    res.status(200).send(allItems);
   } catch (error) {
     handleError(error, res);
   }

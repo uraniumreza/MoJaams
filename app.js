@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
-const { handleError } = require('./server/services/error');
 const bodyParser = require('body-parser');
+const { handleError } = require('./server/services/error');
 const routes = require('./server/routes');
 
 // Set up the express app
@@ -25,8 +25,7 @@ app.use((req, res, next) => {
 });
 
 // Error handling Middleware
-app.use((error, req, res, next) => {
-  console.log("KUDDUS BOYATI!");
+app.use((error, req, res) => {
   handleError(error, res);
 });
 
