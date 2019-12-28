@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { ErrorHandler } = require('../services/error');
+const { ErrorHandler, handleError } = require('../services/error');
 
 const validator = (schema, property) => (req, res, next) => {
   try {
@@ -15,7 +15,7 @@ const validator = (schema, property) => (req, res, next) => {
       throw new ErrorHandler(422, message);
     }
   } catch (error) {
-    next(error);
+    handleError(error, res);
   }
 };
 

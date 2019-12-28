@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// Error handling Middleware
+// Error handling
 app.use((error, req, res) => {
   handleError(error, res);
 });

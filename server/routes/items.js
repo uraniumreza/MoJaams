@@ -1,13 +1,24 @@
 const express = require('express');
+const Joi = require('joi');
 const itemsController = require('../controllers').items;
 const { validator } = require('../middlewares');
-const itemSchema = require('../services/schemas').item;
 
 const router = express.Router();
 
 router
   .route('/')
   .get(itemsController.list)
-  .post(validator(itemSchema, 'body'), itemsController.create);
+  .post(
+    validator(
+      Joi.object().keys({
+        name: Joi.string()
+          .trim()
+          .max(64)
+          .required(),
+      }),
+      'body',
+    ),
+    itemsController.create,
+  );
 
 module.exports = router;

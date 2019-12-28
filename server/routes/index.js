@@ -1,5 +1,6 @@
 const express = require('express');
 const itemRoutes = require('./items');
+const orderRoutes = require('./orders');
 
 const router = express.Router();
 
@@ -10,5 +11,6 @@ router.route('/').get((req, res) =>
 );
 
 router.use('/v1/items', itemRoutes);
+router.use('/v1/orders', orderRoutes);
 
 module.exports = router;
