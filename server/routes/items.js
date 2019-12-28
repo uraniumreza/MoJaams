@@ -7,6 +7,6 @@ const router = express.Router();
 router
   .route('/')
   .get(itemsController.list)
-  .post(validator(itemSchema), itemsController.create);
+  .post(validator(itemSchema, 'body'), itemsController.create);
 
 module.exports = router;

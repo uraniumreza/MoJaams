@@ -1,11 +1,13 @@
 const express = require('express');
 const logger = require('morgan');
+const { handleError } = require('./server/services/error');
 const bodyParser = require('body-parser');
 const routes = require('./server/routes');
 
 // Set up the express app
 const app = express();
 
+// TODO: Use Morgan for logging!
 // Log requests to the console.
 app.use(logger('dev'));
 
@@ -22,14 +24,10 @@ app.use((req, res, next) => {
   next(error);
 });
 
+// Error handling Middleware
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message,
-    },
-  });
-  next(error);
+  console.log("KUDDUS BOYATI!");
+  handleError(error, res);
 });
 
 module.exports = app;
