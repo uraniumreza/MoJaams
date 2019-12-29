@@ -1,5 +1,9 @@
 const { Order, sequelize } = require('../models');
-const { addOrderItems, updateOrderItems } = require('../services/orderItems');
+const {
+  addOrderItems,
+  updateOrderItems,
+  updateOrderItemsStatus,
+} = require('../services/orderItems');
 
 const createOrder = async (customerName, customerAddress, items) => {
   const result = await sequelize.transaction(async (transaction) => {
@@ -41,7 +45,12 @@ const updateOrder = async (orderId, items = [], orderMeta) => {
         );
       }
 
-      if (items.length) await updateOrderItems(orderId, items, transaction);
+      if (orderMeta.status) {
+        await updateOrderItemsStatus(orderId, orderMeta.status, transaction);
+      }
+      if (items.length) {
+        await updateOrderItems(orderId, items, transaction);
+      }
     } catch (error) {
       throw error;
     }

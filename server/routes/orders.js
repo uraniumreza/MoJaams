@@ -39,7 +39,6 @@ router.route('/:orderId').put(
           id: Joi.number(),
           itemVariantId: Joi.number(),
           quantity: Joi.number(),
-          status: Joi.string().trim(),
         }),
       ),
     }),
