@@ -19,14 +19,15 @@ const addOrderItems = (orderId, items, transaction) => {
 
 const updateOrderItems = async (orderId, items, transaction) => {
   try {
-    const updatedItems = await OrderItem.bulkCreate(
-      items.map(({ id, ...itemMeta }) => ({
-        id,
-        orderId,
-        ...itemMeta,
-      })),
-      { updateOnDuplicate: ['id'], transaction },
-    );
+    const updatedItems = await items.map(async ({ id, ...itemMeta }) => {
+      const updatedOrderItem = await OrderItem.update(
+        { ...itemMeta, ...(itemMeta.quantity === 0 && { status: 'canceled' }) },
+        { where: { id } },
+        { transaction },
+      );
+
+      return updatedOrderItem;
+    });
 
     return updatedItems;
   } catch (error) {
@@ -34,7 +35,7 @@ const updateOrderItems = async (orderId, items, transaction) => {
   }
 };
 
-const updateOrderItemsStatus = async (orderId, status, transaction) => {
+const updateOrderItemStatus = async (orderId, status, transaction) => {
   try {
     const updatedItems = await OrderItem.update(
       { status },
@@ -51,5 +52,5 @@ const updateOrderItemsStatus = async (orderId, status, transaction) => {
 module.exports = {
   addOrderItems,
   updateOrderItems,
-  updateOrderItemsStatus,
+  updateOrderItemStatus,
 };

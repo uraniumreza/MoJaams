@@ -2,7 +2,7 @@ const { Order, sequelize } = require('../models');
 const {
   addOrderItems,
   updateOrderItems,
-  updateOrderItemsStatus,
+  updateOrderItemStatus,
 } = require('../services/orderItems');
 const { ErrorHandler } = require('../services/error');
 
@@ -46,10 +46,7 @@ const canUpdateOrder = async (orderId) => {
 const updateOrder = async (orderId, items = [], orderMeta) => {
   const canUpdate = await canUpdateOrder(orderId);
   if (!canUpdate) {
-    throw new ErrorHandler(
-      400,
-      "This order cannot be updated because it's delivered!",
-    );
+    throw new ErrorHandler(400, "This order cannot be updated because it's delivered!");
   }
 
   return sequelize.transaction(async (transaction) => {
@@ -69,11 +66,13 @@ const updateOrder = async (orderId, items = [], orderMeta) => {
       }
 
       if (orderMeta.status) {
-        await updateOrderItemsStatus(orderId, orderMeta.status, transaction);
+        await updateOrderItemStatus(orderId, orderMeta.status, transaction);
       }
-      if (items.length) {
-        await updateOrderItems(orderId, items, transaction);
-      }
+
+      const newItems = items.filter((item) => !item.id);
+      const oldItems = items.filter((item) => item.id);
+      if (oldItems.length) await updateOrderItems(orderId, oldItems, transaction);
+      if (newItems.length) await addOrderItems(orderId, newItems, transaction);
     } catch (error) {
       throw error;
     }
