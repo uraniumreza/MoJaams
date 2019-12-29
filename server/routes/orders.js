@@ -28,29 +28,40 @@ router.route('/').post(
   ordersController.create,
 );
 
-router.route('/:orderId').patch(
-  validator(
-    Joi.object().keys({
-      customerName: Joi.string().trim(),
-      customerAddress: Joi.string().trim(),
-      status: Joi.string().trim(),
-      items: Joi.array().items(
-        Joi.object().keys({
-          id: Joi.number(),
-          itemVariantId: Joi.number(),
-          quantity: Joi.number(),
-        }),
-      ),
-    }),
-    'body',
-  ),
-  validator(
-    Joi.object().keys({
-      orderId: Joi.number().required(),
-    }),
-    'params',
-  ),
-  ordersController.update,
-);
+router
+  .route('/:orderId')
+  .get(
+    validator(
+      Joi.object().keys({
+        orderId: Joi.number().required(),
+      }),
+      'params',
+    ),
+    ordersController.get,
+  )
+  .patch(
+    validator(
+      Joi.object().keys({
+        customerName: Joi.string().trim(),
+        customerAddress: Joi.string().trim(),
+        status: Joi.string().trim(),
+        items: Joi.array().items(
+          Joi.object().keys({
+            id: Joi.number(),
+            itemVariantId: Joi.number(),
+            quantity: Joi.number(),
+          }),
+        ),
+      }),
+      'body',
+    ),
+    validator(
+      Joi.object().keys({
+        orderId: Joi.number().required(),
+      }),
+      'params',
+    ),
+    ordersController.update,
+  );
 
 module.exports = router;

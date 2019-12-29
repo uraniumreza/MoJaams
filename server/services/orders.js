@@ -1,4 +1,11 @@
-const { Order, sequelize } = require('../models');
+const {
+  Order,
+  OrderItem,
+  ItemVariant,
+  Item,
+  Variant,
+  sequelize,
+} = require('../models');
 const {
   addOrderItems,
   updateOrderItems,
@@ -46,7 +53,10 @@ const canUpdateOrder = async (orderId) => {
 const updateOrder = async (orderId, items = [], orderMeta) => {
   const canUpdate = await canUpdateOrder(orderId);
   if (!canUpdate) {
-    throw new ErrorHandler(400, "This order cannot be updated because it's delivered!");
+    throw new ErrorHandler(
+      400,
+      "This order cannot be updated because it's delivered!",
+    );
   }
 
   return sequelize.transaction(async (transaction) => {
@@ -71,7 +81,9 @@ const updateOrder = async (orderId, items = [], orderMeta) => {
 
       const newItems = items.filter((item) => !item.id);
       const oldItems = items.filter((item) => item.id);
-      if (oldItems.length) await updateOrderItems(orderId, oldItems, transaction);
+      if (oldItems.length) {
+        await updateOrderItems(orderId, oldItems, transaction);
+      }
       if (newItems.length) await addOrderItems(orderId, newItems, transaction);
     } catch (error) {
       throw error;
@@ -79,7 +91,37 @@ const updateOrder = async (orderId, items = [], orderMeta) => {
   });
 };
 
+const getOrderDetail = async (orderId) => {
+  const orderDetail = await Order.findOne({
+    where: {
+      id: orderId,
+    },
+    include: [
+      {
+        model: OrderItem,
+        include: [
+          {
+            model: ItemVariant,
+            include: [
+              { model: Item, attributes: ['name'], required: true },
+              { model: Variant, attributes: ['name'], required: true },
+            ],
+            attributes: ['id'],
+            required: true,
+          },
+        ],
+        attributes: ['quantity', 'status'],
+        required: true,
+      },
+    ],
+    attributes: { exclude: ['updatedAt'] },
+  });
+
+  return orderDetail.get({ plain: true });
+};
+
 module.exports = {
   createOrder,
   updateOrder,
+  getOrderDetail,
 };

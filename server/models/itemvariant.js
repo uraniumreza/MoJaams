@@ -30,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     ItemVariant.hasMany(models.OrderItem, {
       foreignKey: 'itemVariantId',
-      as: 'orderItems',
     });
   };
 

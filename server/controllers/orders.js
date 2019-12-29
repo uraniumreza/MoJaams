@@ -1,4 +1,8 @@
-const { createOrder, updateOrder } = require('../services/orders');
+const {
+  createOrder,
+  updateOrder,
+  getOrderDetail,
+} = require('../services/orders');
 const { handleError } = require('../services/error');
 
 exports.create = async (req, res) => {
@@ -22,6 +26,26 @@ exports.update = async (req, res) => {
   try {
     const updatedOrder = await updateOrder(orderId, items, orderMeta);
     res.status(200).send(updatedOrder);
+  } catch (error) {
+    handleError(error, res);
+  }
+};
+
+exports.get = async (req, res) => {
+  const { orderId } = req.params;
+
+  try {
+    const { OrderItems, ...orderMeta } = await getOrderDetail(orderId);
+    const formattedOrderItems = OrderItems.map(
+      ({ quantity, status, ItemVariant }) => ({
+        quantity,
+        status,
+        itemName: ItemVariant.Item.name,
+        variantName: ItemVariant.Variant.name,
+      }),
+    );
+
+    res.status(200).send({ ...orderMeta, orderItems: formattedOrderItems });
   } catch (error) {
     handleError(error, res);
   }

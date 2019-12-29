@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
   Variant.associate = (models) => {
     Variant.hasMany(models.ItemVariant, {
       foreignKey: 'variantId',
-      as: 'itemVariants',
     });
   };
 
