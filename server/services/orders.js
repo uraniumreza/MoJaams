@@ -4,6 +4,7 @@ const {
   updateOrderItems,
   updateOrderItemsStatus,
 } = require('../services/orderItems');
+const { ErrorHandler } = require('../services/error');
 
 const createOrder = async (customerName, customerAddress, items) => {
   const result = await sequelize.transaction(async (transaction) => {
@@ -28,7 +29,29 @@ const createOrder = async (customerName, customerAddress, items) => {
   return result;
 };
 
+const canUpdateOrder = async (orderId) => {
+  if (!orderId) return false;
+
+  const { status } = await Order.findOne({
+    where: {
+      id: orderId,
+    },
+    attributes: ['status'],
+    raw: true,
+  });
+
+  return status !== 'delivered';
+};
+
 const updateOrder = async (orderId, items = [], orderMeta) => {
+  const canUpdate = await canUpdateOrder(orderId);
+  if (!canUpdate) {
+    throw new ErrorHandler(
+      400,
+      "This order cannot be updated because it's delivered!",
+    );
+  }
+
   return sequelize.transaction(async (transaction) => {
     try {
       if (Object.keys(orderMeta).length) {
