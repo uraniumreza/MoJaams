@@ -17,6 +17,7 @@
     "prettier/prettier": "error",
     "implicit-arrow-linebreak": 0,
     "no-useless-catch": 0,
+    "arrow-body-style": 0,
     "import/no-dynamic-require": 0,
     "function-paren-newline": 0
   }

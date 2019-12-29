@@ -17,6 +17,24 @@ const addOrderItems = (orderId, items, transaction) => {
   }
 };
 
+const updateOrderItems = async (orderId, items, transaction) => {
+  try {
+    const orderedItems = await OrderItem.bulkCreate(
+      items.map(({ id, ...itemMeta }) => ({
+        id,
+        orderId,
+        ...itemMeta,
+      })),
+      { updateOnDuplicate: ['id'], transaction },
+    );
+
+    return orderedItems;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   addOrderItems,
+  updateOrderItems,
 };

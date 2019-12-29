@@ -1,7 +1,7 @@
 const { Order, sequelize } = require('../models');
-const { addOrderItems } = require('../services/orderItems');
+const { addOrderItems, updateOrderItems } = require('../services/orderItems');
 
-const createAnOrder = async (customerName, customerAddress, items) => {
+const createOrder = async (customerName, customerAddress, items) => {
   const result = await sequelize.transaction(async (transaction) => {
     try {
       const createdOrder = await Order.create(
@@ -24,6 +24,31 @@ const createAnOrder = async (customerName, customerAddress, items) => {
   return result;
 };
 
+const updateOrder = async (orderId, items = [], orderMeta) => {
+  return sequelize.transaction(async (transaction) => {
+    try {
+      if (Object.keys(orderMeta).length) {
+        await Order.update(
+          {
+            ...orderMeta,
+          },
+          {
+            where: { id: orderId },
+          },
+          {
+            transaction,
+          },
+        );
+      }
+
+      if (items.length) await updateOrderItems(orderId, items, transaction);
+    } catch (error) {
+      throw error;
+    }
+  });
+};
+
 module.exports = {
-  createAnOrder,
+  createOrder,
+  updateOrder,
 };
