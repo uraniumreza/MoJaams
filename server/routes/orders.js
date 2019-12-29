@@ -28,7 +28,7 @@ router.route('/').post(
   ordersController.create,
 );
 
-router.route('/:orderId').put(
+router.route('/:orderId').patch(
   validator(
     Joi.object().keys({
       customerName: Joi.string().trim(),
