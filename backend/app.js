@@ -1,8 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const { handleError } = require('./server/services/error');
-const routes = require('./server/routes');
+const { handleError } = require('./src/services/error');
+const routes = require('./src/routes');
 
 // Set up the express app
 const app = express();

@@ -5,28 +5,42 @@ const { validator } = require('../middlewares');
 
 const router = express.Router();
 
-router.route('/').post(
-  validator(
-    Joi.object().keys({
-      customerName: Joi.string()
-        .trim()
-        .required(),
-      customerAddress: Joi.string()
-        .trim()
-        .required(),
-      items: Joi.array().items(
-        Joi.object().keys({
-          itemVariantId: Joi.number().required(),
-          quantity: Joi.number()
-            .min(1)
-            .required(),
-        }),
-      ),
-    }),
-    'body',
-  ),
-  ordersController.create,
-);
+router
+  .route('/')
+  .post(
+    validator(
+      Joi.object().keys({
+        customerName: Joi.string()
+          .trim()
+          .required(),
+        customerAddress: Joi.string()
+          .trim()
+          .required(),
+        items: Joi.array().items(
+          Joi.object().keys({
+            itemVariantId: Joi.number().required(),
+            quantity: Joi.number()
+              .min(1)
+              .required(),
+          }),
+        ),
+      }),
+      'body',
+    ),
+    ordersController.create,
+  )
+  .get(
+    validator(
+      Joi.object().keys({
+        status: Joi.string().trim(),
+        customerName: Joi.string().trim(),
+        limit: Joi.number(),
+        offset: Joi.number(),
+      }),
+      'query',
+    ),
+    ordersController.list,
+  );
 
 router
   .route('/:orderId')

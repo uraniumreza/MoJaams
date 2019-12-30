@@ -1,6 +1,7 @@
 const {
   createOrder,
   updateOrder,
+  getOrders,
   getOrderDetail,
 } = require('../services/orders');
 const { handleError } = require('../services/error');
@@ -49,4 +50,13 @@ exports.get = async (req, res) => {
   } catch (error) {
     handleError(error, res);
   }
+};
+
+exports.list = async (req, res) => {
+  const { limit, offset, status, customerName } = req.query;
+  console.log('* CONTROLLER *');
+  try {
+    const orders = await getOrders(status, customerName, limit, offset);
+    res.status(200).send({ orders });
+  } catch (error) {}
 };

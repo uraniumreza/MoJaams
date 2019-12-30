@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const {
   Order,
   OrderItem,
@@ -12,6 +13,9 @@ const {
   updateOrderItemStatus,
 } = require('../services/orderItems');
 const { ErrorHandler } = require('../services/error');
+const { createSequelizeFilter } = require('./utils');
+
+const Op = Sequelize.Op;
 
 const createOrder = async (customerName, customerAddress, items) => {
   const result = await sequelize.transaction(async (transaction) => {
@@ -120,8 +124,30 @@ const getOrderDetail = async (orderId) => {
   return orderDetail.get({ plain: true });
 };
 
+const getOrders = async (status, customerName, limit = 10, offset = 0) => {
+  const filters = createSequelizeFilter({
+    status,
+    customerName: {
+      [Op.like]: customerName ? `%${customerName}%` : null,
+    },
+  });
+
+  console.log(filters);
+
+  const orders = await Order.findAll({
+    where: filters,
+    attributes: { exclude: ['updatedAt'] },
+    order: [['createdAt', 'DESC']],
+    limit,
+    offset,
+  });
+
+  return orders;
+};
+
 module.exports = {
   createOrder,
   updateOrder,
+  getOrders,
   getOrderDetail,
 };
