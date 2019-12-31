@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGrinHearts } from '@fortawesome/free-solid-svg-icons';
 import useFetch from 'use-http';
 
 import ItemSelectionPanel from './components/ItemSelectionPanel';
 import CustomerInfoPanel from './components/CustomerInfoPanel';
+import PlaceOrderConfirmation from './components/PlaceOrderConfirmation';
 import Cart from './components/Cart';
 import './App.css';
 
@@ -19,14 +18,17 @@ const App = () => {
 
   const [request, response] = useFetch('http://localhost:8000/api');
 
-  // componentDidMount
   const mounted = useRef(false);
   useEffect(() => {
     if (mounted.current) return;
     mounted.current = true;
-    // setStep(step + 1);
+    goHome();
     getAllItemVariants();
   });
+
+  const goToPreviousStep = () => setStep(step - 1);
+  const goToNextStep = () => setStep(step + 1);
+  const goHome = () => setStep(1);
 
   const getAllItemVariants = async () => {
     const itemVariants = await request.get('/v1/item-variants');
@@ -34,22 +36,6 @@ const App = () => {
       setItemVariants(itemVariants);
       setItems([...new Set(itemVariants.map((item) => item.itemName))]);
       setVariants([...new Set(itemVariants.map((item) => item.variantName))]);
-    }
-  };
-
-  const placeOrder = async (customerName, customerAddress) => {
-    const placedOrder = await request.post('/v1/orders', {
-      customerName,
-      customerAddress,
-      items: Object.entries(cart).map(([itemVariantId, orderItem]) => ({
-        itemVariantId,
-        quantity: orderItem.quantity,
-      })),
-    });
-
-    if (response.ok) {
-      setPlacedOrder(placedOrder);
-      goToNextStep();
     }
   };
 
@@ -62,9 +48,6 @@ const App = () => {
       ),
     ]);
   };
-
-  const goToPreviousStep = () => setStep(step - 1);
-  const goToNextStep = () => setStep(step + 1);
 
   const addToCart = (newItem) => {
     itemVariants.some((itemVariant) => {
@@ -84,6 +67,22 @@ const App = () => {
     });
 
     setStep(step + 1);
+  };
+
+  const placeOrder = async (customerName, customerAddress) => {
+    const placedOrder = await request.post('/v1/orders', {
+      customerName,
+      customerAddress,
+      items: Object.entries(cart).map(([itemVariantId, orderItem]) => ({
+        itemVariantId,
+        quantity: orderItem.quantity,
+      })),
+    });
+
+    if (response.ok) {
+      setPlacedOrder(placedOrder);
+      goToNextStep();
+    }
   };
 
   return (
@@ -123,22 +122,11 @@ const App = () => {
         placeOrder={placeOrder}
       />
 
-      <div className={`full-page ${step === 0 ? 'visible' : ''}`}>
-        {step === 0 && (
-          <>
-            <div className="success-container">
-              <FontAwesomeIcon icon={faGrinHearts} size="3x" />
-              <h3 className="success-text">
-                Congratulations! Your order #{placedOrder && placedOrder.id} has
-                been placed successfully!
-              </h3>
-            </div>
-            <button className="start-btn" onClick={() => setStep(1)}>
-              Home
-            </button>
-          </>
-        )}
-      </div>
+      <PlaceOrderConfirmation
+        step={step}
+        goHome={goHome}
+        placedOrder={placedOrder}
+      />
     </div>
   );
 };

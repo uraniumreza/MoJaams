@@ -175,7 +175,14 @@
   margin-bottom: 18px;
 }
 
-.success-container {
-  color: tomato;
+.confirmation-container {
   max-width: 560px;
+}
+
+.confirmation-container.success {
+  color: #889e81;
+}
+
+.confirmation-container.error {
+  color: #c9753d;
 }
