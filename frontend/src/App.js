@@ -4,6 +4,7 @@ import { faSpinner, faGrinHearts } from '@fortawesome/free-solid-svg-icons';
 import useFetch from 'use-http';
 
 import ItemSelectionPanel from './components/ItemSelectionPanel';
+import Cart from './components/Cart';
 import './App.css';
 
 const App = () => {
@@ -91,7 +92,7 @@ const App = () => {
           <>
             Welcome to MoJaams
             <button className="start-btn" onClick={() => setStep(step + 1)}>
-              Create an Order!
+              Create Order!
             </button>
           </>
         )}
@@ -107,37 +108,12 @@ const App = () => {
         setVariantsForSpecificItem={setVariantsForSpecificItem}
       />
 
-      <div className={`full-page ${step === 3 ? 'visible' : ''}`}>
-        {step === 3 && (
-          <>
-            <h4 className="title">Your Order!</h4>
-            <ol className="order-items-container">
-              {Object.entries(cart).map(([id, orderItem]) => (
-                <li className="order-item" key={id}>
-                  {`${orderItem.itemName} - ${orderItem.itemVariant} `}
-                  <strong>(x{orderItem.quantity})</strong>
-                </li>
-              ))}
-            </ol>
-            <div className="navigation-container">
-              <button
-                className="nav-btn back"
-                onClick={() => {
-                  setStep(step - 1);
-                }}
-              >
-                ADD MORE
-              </button>
-              <button
-                className="nav-btn next"
-                onClick={() => setStep(step + 1)}
-              >
-                CONFIRM
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+      <Cart
+        goBack={goToPreviousStep}
+        goNext={goToNextStep}
+        cart={cart}
+        step={step}
+      />
 
       <div className={`full-page ${step === 4 ? 'visible' : ''}`}>
         {step === 4 && (

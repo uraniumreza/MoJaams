@@ -28,6 +28,7 @@ const ItemSelectionPanel = ({
       quantity: selectedQuantity,
     };
 
+    initializeStates();
     addToCart(newItem);
   };
 
