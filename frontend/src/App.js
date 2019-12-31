@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faGrinHearts } from '@fortawesome/free-solid-svg-icons';
+import { faGrinHearts } from '@fortawesome/free-solid-svg-icons';
 import useFetch from 'use-http';
 
 import ItemSelectionPanel from './components/ItemSelectionPanel';
+import CustomerInfoPanel from './components/CustomerInfoPanel';
 import Cart from './components/Cart';
 import './App.css';
 
@@ -14,8 +15,6 @@ const App = () => {
   const [variants, setVariants] = useState([]);
 
   const [cart, setCart] = useState({});
-  const [customerName, setCustomerName] = useState('');
-  const [customerAddress, setCustomerAddress] = useState('');
   const [placedOrder, setPlacedOrder] = useState();
 
   const [request, response] = useFetch('http://localhost:8000/api');
@@ -38,7 +37,7 @@ const App = () => {
     }
   };
 
-  const placeOrder = async () => {
+  const placeOrder = async (customerName, customerAddress) => {
     const placedOrder = await request.post('/v1/orders', {
       customerName,
       customerAddress,
@@ -50,7 +49,7 @@ const App = () => {
 
     if (response.ok) {
       setPlacedOrder(placedOrder);
-      setStep(step + 1);
+      goToNextStep();
     }
   };
 
@@ -80,6 +79,8 @@ const App = () => {
 
         return true;
       }
+
+      return false;
     });
 
     setStep(step + 1);
@@ -115,44 +116,18 @@ const App = () => {
         step={step}
       />
 
-      <div className={`full-page ${step === 4 ? 'visible' : ''}`}>
-        {step === 4 && (
-          <>
-            <input
-              onChange={(e) => setCustomerName(e.target.value)}
-              placeholder="your name, please?"
-              className="customer-info"
-              autoComplete="true"
-              autoFocus
-            />
-            <input
-              onChange={(e) => setCustomerAddress(e.target.value)}
-              placeholder="and address to deliver?"
-              className="customer-info"
-              autoComplete="true"
-            />
-
-            <div className="navigation-container">
-              <button
-                className="nav-btn back"
-                onClick={() => setStep(step - 1)}
-              >
-                BACK
-              </button>
-              <button className="nav-btn next" onClick={placeOrder}>
-                PLACE ORDER{' '}
-                {request.loading && <FontAwesomeIcon icon={faSpinner} spin />}
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+      <CustomerInfoPanel
+        request={request}
+        step={step}
+        goBack={goToPreviousStep}
+        placeOrder={placeOrder}
+      />
 
       <div className={`full-page ${step === 0 ? 'visible' : ''}`}>
         {step === 0 && (
           <>
             <div className="success-container">
-              <FontAwesomeIcon icon={faGrinHearts} size="3x" rotation={300} />
+              <FontAwesomeIcon icon={faGrinHearts} size="3x" />
               <h3 className="success-text">
                 Congratulations! Your order #{placedOrder && placedOrder.id} has
                 been placed successfully!
