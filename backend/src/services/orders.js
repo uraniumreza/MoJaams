@@ -127,9 +127,7 @@ const getOrderDetail = async (orderId) => {
 const getOrders = async (status, customerName, limit = 10, offset = 0) => {
   const filters = createSequelizeFilter({
     status,
-    customerName: {
-      [Op.like]: customerName ? `%${customerName}%` : null,
-    },
+    ...(customerName && { customerName: { [Op.like]: `%${customerName}%` } }),
   });
 
   console.log(filters);
