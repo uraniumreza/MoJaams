@@ -6,14 +6,14 @@ const Cart = ({ cart, goBack, goNext, step }) => {
       {step === 3 && (
         <>
           <h4 className="title">Your Order!</h4>
-          <ol className="order-items-container">
+          <div className="order-items-container">
             {Object.entries(cart).map(([id, orderItem]) => (
-              <li className="order-item" key={id}>
+              <div className="order-item" key={id}>
                 {`${orderItem.itemName} - ${orderItem.itemVariant} `}
                 <strong>(x{orderItem.quantity})</strong>
-              </li>
+              </div>
             ))}
-          </ol>
+          </div>
 
           <div className="navigation-container">
             <button className="nav-btn back" onClick={goBack}>
