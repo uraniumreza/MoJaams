@@ -1,7 +1,10 @@
+const express = require('express');
 const { getAllActiveItemVariants } = require('../services/itemVariants');
 const { handleError } = require('../services/error');
 
-exports.list = async (req, res) => {
+const router = express.Router();
+
+router.route('/').get(async (req, res) => {
   try {
     const allItemVariants = await getAllActiveItemVariants();
 
@@ -17,4 +20,6 @@ exports.list = async (req, res) => {
   } catch (error) {
     handleError(error, res);
   }
-};
+});
+
+module.exports = router;

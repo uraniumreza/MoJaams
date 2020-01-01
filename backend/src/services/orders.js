@@ -15,7 +15,7 @@ const {
 const { ErrorHandler } = require('../services/error');
 const { createSequelizeFilter } = require('./utils');
 
-const Op = Sequelize.Op;
+const { Op } = Sequelize;
 
 const createOrder = async (customerName, customerAddress, items) => {
   const result = await sequelize.transaction(async (transaction) => {
@@ -129,8 +129,6 @@ const getOrders = async (status, customerName, limit = 10, offset = 0) => {
     status,
     ...(customerName && { customerName: { [Op.like]: `%${customerName}%` } }),
   });
-
-  console.log(filters);
 
   const orders = await Order.findAll({
     where: filters,
