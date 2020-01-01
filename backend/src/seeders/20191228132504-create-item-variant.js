@@ -34,8 +34,8 @@ module.exports = {
           updatedAt: Sequelize.literal('NOW()'),
         },
         {
-          itemId: 2,
-          variantId: 3,
+          itemId: 3,
+          variantId: 1,
           createdAt: Sequelize.literal('NOW()'),
           updatedAt: Sequelize.literal('NOW()'),
         },

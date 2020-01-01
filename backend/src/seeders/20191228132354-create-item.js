@@ -13,6 +13,11 @@ module.exports = {
           createdAt: Sequelize.literal('NOW()'),
           updatedAt: Sequelize.literal('NOW()'),
         },
+        {
+          name: 'Meat Lovers',
+          createdAt: Sequelize.literal('NOW()'),
+          updatedAt: Sequelize.literal('NOW()'),
+        },
       ],
       {},
     ),
