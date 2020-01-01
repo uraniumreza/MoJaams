@@ -1,0 +1,46 @@
+version: "2"
+services:
+  proxy:
+    container_name: mojaams_proxy
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    ports:
+      - "4040:4040"
+    restart: always
+
+  frontend:
+    container_name: mojaams_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+
+  backend:
+    container_name: mojaams_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    environment:
+      - POSTGRES_DB=MoJaams-dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+    restart: always
+
+  db:
+    container_name: mojaams_db
+    image: postgres:12.1
+    environment:
+      - POSTGRES_DB=MoJaams-dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
