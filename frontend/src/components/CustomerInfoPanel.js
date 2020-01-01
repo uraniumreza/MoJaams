@@ -7,7 +7,12 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
   const [customerAddress, setCustomerAddress] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const createOrder = () => {
+  const clearStates = () => {
+    setCustomerAddress('');
+    setCustomerName('');
+  };
+
+  const createOrder = async () => {
     if (!customerName.trim().length) {
       setErrorMessage(
         'Please input your name, atleast the nickname that we can use to communicate!',
@@ -18,7 +23,8 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
       );
     } else {
       setErrorMessage('');
-      placeOrder(customerName, customerAddress);
+      await placeOrder(customerName, customerAddress);
+      clearStates();
     }
   };
 
