@@ -9,7 +9,7 @@ const getAllActiveItemVariants = async () => {
       { model: Item, attributes: ['name'], required: true },
       { model: Variant, attributes: ['name'], required: true },
     ],
-    attributes: ['id'],
+    attributes: ['id', 'status'],
   });
 
   return activeItemVariants;
