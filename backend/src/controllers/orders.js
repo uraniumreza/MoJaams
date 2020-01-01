@@ -65,7 +65,9 @@ router
       try {
         const orders = await getOrders(status, customerName, limit, offset);
         res.status(200).send({ orders });
-      } catch (error) {}
+      } catch (error) {
+        handleError(error, res);
+      }
     },
   );
 

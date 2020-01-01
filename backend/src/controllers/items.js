@@ -1,7 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
 
-const { createAnItem } = require('../services/items');
+const { createAnItem, getAllItems } = require('../services/items');
 const { handleError } = require('../services/error');
 const { validator } = require('../middlewares');
 
