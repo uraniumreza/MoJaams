@@ -12,7 +12,7 @@ const validator = (schema, property) => (req, res, next) => {
       const { details } = error;
       const message = details.map((i) => i.message).join(',');
 
-      throw new ErrorHandler(422, message);
+      throw new ErrorHandler(400, message);
     }
   } catch (error) {
     handleError(error, res);
