@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": null,
-    "database": "MoJaams-dev",
+    "database": "mojaams_dev",
     "host": "db",
     "port": 5432,
     "dialect": "postgres"
@@ -10,16 +10,16 @@
   "test": {
     "username": "postgres",
     "password": null,
-    "database": "MoJaams-test",
-    "host": "127.0.0.1",
+    "database": "mojaams_test",
+    "host": "db",
     "port": 5432,
     "dialect": "postgres"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "MoJaams-prod",
-    "host": "127.0.0.1",
+    "database": "mojaams_prod",
+    "host": "db",
     "port": 5432,
     "dialect": "postgres"
   }
