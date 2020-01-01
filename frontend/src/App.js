@@ -28,6 +28,7 @@ const App = () => {
 
   const goToPreviousStep = () => setStep(step - 1);
   const goToNextStep = () => setStep(step + 1);
+  const goToCart = () => setStep(3);
   const goHome = () => setStep(1);
 
   const getAllItemVariants = async () => {
@@ -69,6 +70,10 @@ const App = () => {
     setStep(step + 1);
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const placeOrder = async (customerName, customerAddress) => {
     const placedOrder = await request.post('/v1/orders', {
       customerName,
@@ -79,10 +84,9 @@ const App = () => {
       })),
     });
 
-    if (response.ok) {
-      setPlacedOrder(placedOrder);
-      goToNextStep();
-    }
+    if (response.ok) clearCart();
+    setPlacedOrder(placedOrder);
+    goToNextStep();
   };
 
   return (
@@ -125,6 +129,7 @@ const App = () => {
       <PlaceOrderConfirmation
         step={step}
         goHome={goHome}
+        goToCart={goToCart}
         placedOrder={placedOrder}
       />
     </div>
