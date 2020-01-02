@@ -33,14 +33,16 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
       {step === 4 && (
         <>
           <input
-            onChange={(e) => setCustomerName(e.target.value)}
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value.trim())}
             placeholder="your name, please?"
             className="customer-info"
             autoComplete="true"
             autoFocus
           />
           <input
-            onChange={(e) => setCustomerAddress(e.target.value)}
+            value={customerAddress}
+            onChange={(e) => setCustomerAddress(e.target.value.trim())}
             placeholder="and the address to deliver your pizza?"
             className="customer-info"
             autoComplete="true"
@@ -52,10 +54,12 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
             <button className="nav-btn back" onClick={goBack}>
               BACK
             </button>
-            <button className="nav-btn next" onClick={createOrder}>
-              PLACE ORDER{' '}
-              {request.loading && <FontAwesomeIcon icon={faSpinner} spin />}
-            </button>
+            {customerName && customerAddress && (
+              <button className="nav-btn next" onClick={createOrder}>
+                PLACE ORDER{' '}
+                {request.loading && <FontAwesomeIcon icon={faSpinner} spin />}
+              </button>
+            )}
           </div>
         </>
       )}

@@ -33,7 +33,7 @@ const App = () => {
   const goHome = () => setStep(1);
 
   const getAllItemVariants = async () => {
-    const itemVariants = await request.get('/v1/item-variants');
+    const itemVariants = await request.get('/v1/item-variants?status=active');
     if (response.ok) {
       setItemVariants(itemVariants);
       setItems([...new Set(itemVariants.map((item) => item.itemName))]);

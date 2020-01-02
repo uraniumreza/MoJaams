@@ -38,14 +38,16 @@ const Cart = ({
             )}
           </div>
 
-          <div className="navigation-container">
-            <button className="nav-btn back" onClick={goBack}>
-              ADD MORE
-            </button>
-            <button className="nav-btn next" onClick={goNext}>
-              CONFIRM
-            </button>
-          </div>
+          {Object.entries(cart).length && (
+            <div className="navigation-container">
+              <button className="nav-btn back" onClick={goBack}>
+                ADD MORE
+              </button>
+              <button className="nav-btn next" onClick={goNext}>
+                CONFIRM
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>
