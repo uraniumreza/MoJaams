@@ -1,25 +1,37 @@
 const express = require('express');
-const { getAllActiveItemVariants } = require('../services/itemVariants');
+const Joi = require('joi');
+const { getItemVariants } = require('../services/itemVariants');
 const { handleError } = require('../services/error');
+const { validator } = require('../middlewares');
 
 const router = express.Router();
 
-router.route('/').get(async (req, res) => {
-  try {
-    const allItemVariants = await getAllActiveItemVariants();
+router.route('/').get(
+  validator(
+    Joi.object().keys({
+      status: Joi.string().trim(),
+    }),
+    'query',
+  ),
+  async (req, res) => {
+    const { status } = req.query;
+    try {
+      const allItemVariants = await getItemVariants(status);
 
-    const formattedItemVariants = await allItemVariants.map(
-      ({ id, ...itemVariant }) => ({
-        id,
-        itemName: itemVariant.Item.name,
-        variantName: itemVariant.Variant.name,
-      }),
-    );
+      const formattedItemVariants = await allItemVariants.map(
+        ({ id, status: itemVariantStatus, ...itemVariant }) => ({
+          id,
+          status: itemVariantStatus,
+          itemName: itemVariant.Item.name,
+          variantName: itemVariant.Variant.name,
+        }),
+      );
 
-    res.status(200).send(formattedItemVariants);
-  } catch (error) {
-    handleError(error, res);
-  }
-});
+      res.status(200).send(formattedItemVariants);
+    } catch (error) {
+      handleError(error, res);
+    }
+  },
+);
 
 module.exports = router;

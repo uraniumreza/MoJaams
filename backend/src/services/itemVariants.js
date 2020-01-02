@@ -1,20 +1,21 @@
 const { ItemVariant, Item, Variant } = require('../models');
+const { createSequelizeFilter } = require('../services/utils.js');
 
-const getAllActiveItemVariants = async () => {
+const getItemVariants = async (status) => {
   const activeItemVariants = await ItemVariant.findAll({
-    where: {
-      status: 'active',
-    },
+    where: createSequelizeFilter({ status }),
     include: [
       { model: Item, attributes: ['name'], required: true },
       { model: Variant, attributes: ['name'], required: true },
     ],
     attributes: ['id', 'status'],
+    raw: true,
+    nest: true,
   });
 
   return activeItemVariants;
 };
 
 module.exports = {
-  getAllActiveItemVariants,
+  getItemVariants,
 };
