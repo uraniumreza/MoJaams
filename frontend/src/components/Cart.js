@@ -32,8 +32,8 @@ const Cart = ({
               </div>
             ))}
             {!Object.entries(cart).length && (
-              <div className="order-item">
-                <div className="name">Nothing's Here! ¯\_(ツ)_/¯</div>
+              <div className="order-item empty">
+                <div className="name empty">Nothing's Here! ¯\_(ツ)_/¯</div>
                 <button onClick={goBack}>ADD PIZZA</button>
               </div>
             )}

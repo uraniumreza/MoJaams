@@ -175,6 +175,19 @@
   margin-bottom: 8px;
 }
 
+.order-item.empty {
+  background-color: #f15555;
+  border: 1px dashed #fff;
+}
+
+.order-item.empty > .name {
+  color: #fff;
+}
+
+.order-item.empty button {
+  display: inline-block;
+}
+
 .order-item > .name {
   font-size: 18px;
   color: #666;
