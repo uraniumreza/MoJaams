@@ -14,6 +14,7 @@ const App = () => {
   const [variants, setVariants] = useState([]);
 
   const [cart, setCart] = useState({});
+  const [selectedCartItem, setSelectedCartItem] = useState();
   const [placedOrder, setPlacedOrder] = useState();
 
   const [request, response] = useFetch('http://localhost:8000/api');
@@ -70,6 +71,18 @@ const App = () => {
     setStep(step + 1);
   };
 
+  const removeFromCart = (id) => {
+    let { [id]: omit, ...res } = cart;
+    setCart(res);
+  };
+
+  const editOrderItem = (id) => {
+    const orderItem = cart[id];
+    removeFromCart(id);
+    setSelectedCartItem(orderItem);
+    setStep(2);
+  };
+
   const clearCart = () => {
     setCart([]);
   };
@@ -96,7 +109,7 @@ const App = () => {
           <>
             Welcome to MoJaams
             <button className="start-btn" onClick={() => setStep(step + 1)}>
-              Create Order!
+              Create Order
             </button>
           </>
         )}
@@ -110,6 +123,7 @@ const App = () => {
         addToCart={addToCart}
         goBack={goToPreviousStep}
         setVariantsForSpecificItem={setVariantsForSpecificItem}
+        selectedCartItem={selectedCartItem}
       />
 
       <Cart
@@ -117,6 +131,8 @@ const App = () => {
         goNext={goToNextStep}
         cart={cart}
         step={step}
+        editOrderItem={editOrderItem}
+        removeFromCart={removeFromCart}
       />
 
       <CustomerInfoPanel

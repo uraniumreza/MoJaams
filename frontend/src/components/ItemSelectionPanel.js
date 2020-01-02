@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,15 +10,20 @@ const ItemSelectionPanel = ({
   goBack,
   addToCart,
   setVariantsForSpecificItem,
+  selectedCartItem,
 }) => {
   const [selectedPizza, setSelectedPizza] = useState();
   const [selectedSize, setSelectedSize] = useState();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
+  useEffect(() => {
+    if (selectedCartItem) initializeStates(selectedCartItem);
+  }, [selectedCartItem]);
+
   const initializeStates = () => {
-    setSelectedPizza(undefined);
-    setSelectedSize(undefined);
-    setSelectedQuantity(1);
+    setSelectedPizza(selectedCartItem?.itemName || undefined);
+    setSelectedSize(selectedCartItem?.itemVariant || undefined);
+    setSelectedQuantity(selectedCartItem?.quantity || 1);
   };
 
   const addNewItemToCart = () => {
@@ -49,6 +54,8 @@ const ItemSelectionPanel = ({
                     }`}
                     onClick={() => {
                       setSelectedPizza(item);
+                      setSelectedSize();
+                      setSelectedQuantity(1);
                       setVariantsForSpecificItem(item);
                     }}
                     key={index.toString()}
@@ -69,7 +76,10 @@ const ItemSelectionPanel = ({
                     className={`pizza-item ${
                       selectedSize === variant ? 'selected' : ''
                     }`}
-                    onClick={() => setSelectedSize(variant)}
+                    onClick={() => {
+                      setSelectedSize(variant);
+                      setSelectedQuantity(1);
+                    }}
                     key={index.toString()}
                   >
                     <span>{variant}</span>
