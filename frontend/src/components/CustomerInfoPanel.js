@@ -35,7 +35,7 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
         <>
           <input
             value={customerName}
-            onChange={(e) => setCustomerName(e.target.value.trim())}
+            onChange={(e) => setCustomerName(e.target.value)}
             placeholder="your name, please?"
             className="customer-info"
             autoComplete="true"
@@ -43,7 +43,7 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
           />
           <input
             value={customerAddress}
-            onChange={(e) => setCustomerAddress(e.target.value.trim())}
+            onChange={(e) => setCustomerAddress(e.target.value)}
             placeholder="and the address to deliver your pizza?"
             className="customer-info"
             autoComplete="true"
