@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cart - SnapShot test renders correctly when there are 2 items 1`] = `
+<div
+  className="full-page visible"
+>
+  <h4
+    className="title"
+  >
+    Your Order!
+  </h4>
+  <div
+    className="order-items-container"
+  >
+    <div
+      className="order-item"
+    >
+      <span
+        className="name"
+      >
+        Margarita - Small 
+        <strong>
+          (x
+          1
+          )
+        </strong>
+      </span>
+      <div>
+        <button
+          onClick={[Function]}
+        >
+          UPDATE
+        </button>
+        <button
+          onClick={[Function]}
+        >
+          DELETE
+        </button>
+      </div>
+    </div>
+    <div
+      className="order-item"
+    >
+      <span
+        className="name"
+      >
+        Four Seasons - Medium 
+        <strong>
+          (x
+          2
+          )
+        </strong>
+      </span>
+      <div>
+        <button
+          onClick={[Function]}
+        >
+          UPDATE
+        </button>
+        <button
+          onClick={[Function]}
+        >
+          DELETE
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="navigation-container"
+  >
+    <button
+      className="nav-btn back"
+      onClick={[Function]}
+    >
+      ADD MORE
+    </button>
+    <button
+      className="nav-btn next"
+      onClick={[Function]}
+    >
+      CONFIRM
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Cart - SnapShot test renders correctly when there are no items 1`] = `
+<div
+  className="full-page visible"
+>
+  <h4
+    className="title"
+  >
+    Your Order!
+  </h4>
+  <div
+    className="order-items-container"
+  >
+    <div
+      className="order-item"
+    >
+      <div
+        className="name"
+      >
+        Nothing's Here! ¯\\_(ツ)_/¯
+      </div>
+      <button
+        onClick={[Function]}
+      >
+        ADD PIZZA
+      </button>
+    </div>
+  </div>
+  0
+</div>
+`;
