@@ -70,7 +70,7 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
 
 CustomerInfoPanel.propTypes = {
   request: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
   }),
   step: PropTypes.number.isRequired,
   placeOrder: PropTypes.func.isRequired,

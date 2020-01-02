@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomerInfo Panel - SnapShot test renders correctly with two inputs 1`] = `
+<div
+  className="full-page visible"
+>
+  <input
+    autoComplete="true"
+    autoFocus={true}
+    className="customer-info"
+    onChange={[Function]}
+    placeholder="your name, please?"
+    value=""
+  />
+  <input
+    autoComplete="true"
+    className="customer-info"
+    onChange={[Function]}
+    placeholder="and the address to deliver your pizza?"
+    value=""
+  />
+  <span
+    className="error-label"
+  >
+    
+  </span>
+  <div
+    className="navigation-container"
+  >
+    <button
+      className="nav-btn back"
+      onClick={[Function]}
+    >
+      BACK
+    </button>
+    
+  </div>
+</div>
+`;

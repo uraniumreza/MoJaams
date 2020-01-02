@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemSelectionPanel - SnapShot test renders correctly when there are 1 item and 2 variants 1`] = `
+<div
+  className="full-page visible"
+>
+  <h4
+    className="title"
+  >
+    Grab your Pizza!
+  </h4>
+  <div
+    className="pizza-container"
+  >
+    <div
+      className="pizza-item "
+      onClick={[Function]}
+    >
+      <span>
+        Marinara
+      </span>
+    </div>
+  </div>
+  <div
+    className="section "
+  >
+    <h4
+      className="title"
+    >
+      What size you prefer?
+    </h4>
+    <div
+      className="pizza-container"
+    >
+      <div
+        className="pizza-item "
+        onClick={[Function]}
+      >
+        <span>
+          Large
+        </span>
+      </div>
+      <div
+        className="pizza-item "
+        onClick={[Function]}
+      >
+        <span>
+          Medium
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="section "
+  >
+    <h4
+      className="title"
+    >
+      How many of them?
+    </h4>
+    <div
+      className="counter-container"
+    >
+      <button
+        className="counter-btn"
+        onClick={[Function]}
+        title="I want less!"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-minus-circle fa-w-16 "
+          data-icon="minus-circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zM124 296c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h264c6.6 0 12 5.4 12 12v56c0 6.6-5.4 12-12 12H124z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+      <span
+        className="counter"
+      >
+        1
+      </span>
+      <button
+        className="counter-btn"
+        onClick={[Function]}
+        title="I want more!"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-plus-circle fa-w-16 "
+          data-icon="plus-circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    className="navigation-container"
+  >
+    <button
+      className="nav-btn back"
+      onClick={[Function]}
+    >
+      BACK
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ItemSelectionPanel - SnapShot test renders correctly when there are no items and variants 1`] = `
+<div
+  className="full-page visible"
+>
+  0
+  0
+  <div
+    className="section "
+  >
+    <h4
+      className="title"
+    >
+      How many of them?
+    </h4>
+    <div
+      className="counter-container"
+    >
+      <button
+        className="counter-btn"
+        onClick={[Function]}
+        title="I want less!"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-minus-circle fa-w-16 "
+          data-icon="minus-circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zM124 296c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h264c6.6 0 12 5.4 12 12v56c0 6.6-5.4 12-12 12H124z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+      <span
+        className="counter"
+      >
+        1
+      </span>
+      <button
+        className="counter-btn"
+        onClick={[Function]}
+        title="I want more!"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-plus-circle fa-w-16 "
+          data-icon="plus-circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    className="navigation-container"
+  >
+    <button
+      className="nav-btn back"
+      onClick={[Function]}
+    >
+      BACK
+    </button>
+  </div>
+</div>
+`;
+
+exports[`ItemSelectionPanel - SnapShot test renders correctly when there is a selected item for update 1`] = `
+<div
+  className="full-page visible"
+>
+  <h4
+    className="title"
+  >
+    Grab your Pizza!
+  </h4>
+  <div
+    className="pizza-container"
+  >
+    <div
+      className="pizza-item "
+      onClick={[Function]}
+    >
+      <span>
+        Marinara
+      </span>
+    </div>
+  </div>
+  <div
+    className="section "
+  >
+    <h4
+      className="title"
+    >
+      What size you prefer?
+    </h4>
+    <div
+      className="pizza-container"
+    >
+      <div
+        className="pizza-item "
+        onClick={[Function]}
+      >
+        <span>
+          Large
+        </span>
+      </div>
+      <div
+        className="pizza-item "
+        onClick={[Function]}
+      >
+        <span>
+          Medium
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    className="section "
+  >
+    <h4
+      className="title"
+    >
+      How many of them?
+    </h4>
+    <div
+      className="counter-container"
+    >
+      <button
+        className="counter-btn"
+        onClick={[Function]}
+        title="I want less!"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-minus-circle fa-w-16 "
+          data-icon="minus-circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zM124 296c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h264c6.6 0 12 5.4 12 12v56c0 6.6-5.4 12-12 12H124z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+      <span
+        className="counter"
+      >
+        1
+      </span>
+      <button
+        className="counter-btn"
+        onClick={[Function]}
+        title="I want more!"
+      >
+        <svg
+          aria-hidden="true"
+          className="svg-inline--fa fa-plus-circle fa-w-16 "
+          data-icon="plus-circle"
+          data-prefix="fas"
+          focusable="false"
+          role="img"
+          style={Object {}}
+          viewBox="0 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"
+            fill="currentColor"
+            style={Object {}}
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    className="navigation-container"
+  >
+    <button
+      className="nav-btn back"
+      onClick={[Function]}
+    >
+      BACK
+    </button>
+  </div>
+</div>
+`;

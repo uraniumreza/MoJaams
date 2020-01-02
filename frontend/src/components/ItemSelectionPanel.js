@@ -143,7 +143,7 @@ ItemSelectionPanel.propTypes = {
   variants: PropTypes.arrayOf(PropTypes.string.isRequired),
   request: PropTypes.shape({
     error: PropTypes.object,
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
   }).isRequired,
   goBack: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
