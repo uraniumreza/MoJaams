@@ -1,13 +1,23 @@
 const { Item } = require('../models');
+const { createSequelizeFilter } = require('../services/utils');
 
-const createAnItem = async (name) =>
+const createItem = (name) =>
   Item.create({
     name,
   });
 
-const getAllItems = async () => Item.findAll();
+const getItem = (itemId) =>
+  Item.findOne({ where: { id: itemId, raw: true, nest: true } });
+
+const getItems = (status) =>
+  Item.findAll({
+    where: createSequelizeFilter({ status }),
+    raw: true,
+    nest: true,
+  });
 
 module.exports = {
-  createAnItem,
-  getAllItems,
+  createItem,
+  getItems,
+  getItem,
 };

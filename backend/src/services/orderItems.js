@@ -22,7 +22,7 @@ const updateOrderItems = async (orderId, items, transaction) => {
     const updatedItems = await items.map(async ({ id, ...itemMeta }) => {
       const updatedOrderItem = await OrderItem.update(
         { ...itemMeta, ...(itemMeta.quantity === 0 && { status: 'canceled' }) },
-        { where: { id } },
+        { where: { id: orderId } },
         { transaction },
       );
 

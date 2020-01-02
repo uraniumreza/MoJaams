@@ -1,7 +1,7 @@
 const express = require('express');
-const itemRoutes = require('./items');
-const orderRoutes = require('./orders');
-const itemVariants = require('./itemVariants');
+const itemsController = require('./items');
+const ordersController = require('./orders');
+const itemVariantsController = require('./itemVariants');
 
 const router = express.Router();
 
@@ -11,8 +11,8 @@ router.route('/').get((req, res) =>
   }),
 );
 
-router.use('/v1/items', itemRoutes);
-router.use('/v1/orders', orderRoutes);
-router.use('/v1/item-variants', itemVariants);
+router.use('/v1/items', itemsController);
+router.use('/v1/orders', ordersController);
+router.use('/v1/item-variants', itemVariantsController);
 
 module.exports = router;

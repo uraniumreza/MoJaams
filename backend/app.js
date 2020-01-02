@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const { handleError } = require('./src/services/error');
-const routes = require('./src/controllers');
+const controllers = require('./src/controllers');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
   );
 
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, GET');
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
     return res.status(200).json({});
   }
 
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   return null; // to avoid eslint-consistent-return error
 });
 
-app.use('/api', routes);
+app.use('/api', controllers);
 
 app.use((error, req, res) => {
   handleError(error, res);

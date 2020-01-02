@@ -1,9 +1,18 @@
-const { ItemVariant, Item, Variant } = require('../models');
+const { ItemVariant, Item, Variant, Sequelize } = require('../models');
 const { createSequelizeFilter } = require('../services/utils.js');
 
-const getItemVariants = async (status) => {
+const { Op } = Sequelize;
+
+const getItemVariants = async (status, itemVariantIds = []) => {
   const activeItemVariants = await ItemVariant.findAll({
-    where: createSequelizeFilter({ status }),
+    where: createSequelizeFilter({
+      status,
+      ...(itemVariantIds.length && {
+        id: {
+          [Op.in]: itemVariantIds,
+        },
+      }),
+    }),
     include: [
       { model: Item, attributes: ['name'], required: true },
       { model: Variant, attributes: ['name'], required: true },

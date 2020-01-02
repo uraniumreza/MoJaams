@@ -11,8 +11,8 @@
     "migrate:undo": "npx sequelize-cli db:migrate:undo:all",
     "db:reset": "npm run migrate:undo",
     "pretest": "NODE_ENV=test npm run db:reset && NODE_ENV=test npm run migrate && NODE_ENV=test npm run seed",
-    "test": "NODE_ENV=test jest -i --forceExit",
-    "test:watch": "NODE_ENV=test jest --watch",
+    "test": "NODE_ENV=test jest -i --forceExit --verbose",
+    "test:watch": "NODE_ENV=test jest --watch --verbose --detectOpenHandles",
     "prettify": "prettier --write --config .prettierrc.json"
   },
   "keywords": [],
@@ -37,7 +37,14 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "lint-staged": {
     "**/*.js": [

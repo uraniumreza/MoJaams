@@ -12,15 +12,28 @@ const {
   updateOrderItems,
   updateOrderItemStatus,
 } = require('../services/orderItems');
+const { getItemVariants } = require('../services//itemVariants');
 const { ErrorHandler } = require('../services/error');
 const { createSequelizeFilter } = require('./utils');
 
 const { Op } = Sequelize;
 
-const createOrder = async (customerName, customerAddress, items) => {
+const isAllItemVariantsActive = async (items) => {
+  if (!items.length) return false;
+
+  const itemVariantIds = items.map(({ itemVariantId }) => itemVariantId);
+  const itemVariants = await getItemVariants(null, itemVariantIds);
+  const isAllActive = itemVariants.every(({ status }) => status === 'active');
+
+  return isAllActive;
+};
+
+const createOrder = async (customerName, customerAddress, items = []) => {
+  const isActive = await isAllItemVariantsActive(items);
+  if (!isActive) throw new ErrorHandler(400, 'One of your item is not active!');
   const result = await sequelize.transaction(async (transaction) => {
     try {
-      const createdOrder = await Order.create(
+      let createdOrder = await Order.create(
         {
           customerName,
           customerAddress,
@@ -29,9 +42,14 @@ const createOrder = async (customerName, customerAddress, items) => {
           transaction,
         },
       );
-      await addOrderItems(createdOrder.dataValues.id, items, transaction);
+      createdOrder = createdOrder.get({ plain: true });
+      const orderedItems = await addOrderItems(
+        createdOrder.id,
+        items,
+        transaction,
+      ).map((orderItem) => orderItem.get({ plain: true }));
 
-      return createdOrder.dataValues;
+      return { ...createdOrder, orderedItems };
     } catch (error) {
       throw error;
     }

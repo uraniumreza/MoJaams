@@ -23,14 +23,17 @@ router
         customerAddress: Joi.string()
           .trim()
           .required(),
-        items: Joi.array().items(
-          Joi.object().keys({
-            itemVariantId: Joi.number().required(),
-            quantity: Joi.number()
-              .min(1)
-              .required(),
-          }),
-        ),
+        items: Joi.array()
+          .min(1)
+          .items(
+            Joi.object().keys({
+              itemVariantId: Joi.number().required(),
+              quantity: Joi.number()
+                .min(1)
+                .required(),
+            }),
+          )
+          .required(),
       }),
       'body',
     ),

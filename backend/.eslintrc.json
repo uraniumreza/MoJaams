@@ -16,6 +16,7 @@
   },
   "rules": {
     "prettier/prettier": "error",
+    "operator-linebreak": [2, "after"],
     "implicit-arrow-linebreak": 0,
     "no-useless-catch": 0,
     "arrow-body-style": 0,
