@@ -84,7 +84,7 @@ const App = () => {
   };
 
   const clearCart = () => {
-    setCart([]);
+    setCart({});
   };
 
   const placeOrder = async (customerName, customerAddress) => {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
@@ -65,6 +66,15 @@ const CustomerInfoPanel = ({ request, step, placeOrder, goBack }) => {
       )}
     </div>
   );
+};
+
+CustomerInfoPanel.propTypes = {
+  request: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+  }),
+  step: PropTypes.number.isRequired,
+  placeOrder: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
 };
 
 export default CustomerInfoPanel;

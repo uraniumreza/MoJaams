@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -134,6 +135,24 @@ const ItemSelectionPanel = ({
       )}
     </div>
   );
+};
+
+ItemSelectionPanel.propTypes = {
+  step: PropTypes.number.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string.isRequired),
+  variants: PropTypes.arrayOf(PropTypes.string.isRequired),
+  request: PropTypes.shape({
+    error: PropTypes.object,
+    loading: PropTypes.bool.isRequired,
+  }).isRequired,
+  goBack: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  setVariantsForSpecificItem: PropTypes.func.isRequired,
+  selectedCartItem: PropTypes.shape({
+    itemName: PropTypes.string.isRequired,
+    itemVariant: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+  }),
 };
 
 export default ItemSelectionPanel;

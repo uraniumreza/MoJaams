@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Cart = ({
   cart,
@@ -52,6 +53,21 @@ const Cart = ({
       )}
     </div>
   );
+};
+
+Cart.propTypes = {
+  step: PropTypes.number.isRequired,
+  cart: PropTypes.objectOf(
+    PropTypes.shape({
+      itemName: PropTypes.string.isRequired,
+      itemVariant: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+    }),
+  ),
+  editOrderItem: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
+  goNext: PropTypes.func.isRequired,
 };
 
 export default Cart;
