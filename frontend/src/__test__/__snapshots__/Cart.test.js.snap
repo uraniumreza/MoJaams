@@ -97,10 +97,10 @@ exports[`Cart - SnapShot test renders correctly when there are no items 1`] = `
     className="order-items-container"
   >
     <div
-      className="order-item"
+      className="order-item empty"
     >
       <div
-        className="name"
+        className="name empty"
       >
         Nothing's Here! ¯\\_(ツ)_/¯
       </div>

@@ -18,13 +18,13 @@ const ItemSelectionPanel = ({
   const [selectedQuantity, setSelectedQuantity] = useState(1);
 
   useEffect(() => {
-    if (selectedCartItem) initializeStates(selectedCartItem);
+    if (selectedCartItem) initializeStates(true);
   }, [selectedCartItem]);
 
-  const initializeStates = () => {
-    setSelectedPizza(selectedCartItem?.itemName || undefined);
-    setSelectedSize(selectedCartItem?.itemVariant || undefined);
-    setSelectedQuantity(selectedCartItem?.quantity || 1);
+  const initializeStates = (prePopulate) => {
+    setSelectedPizza(prePopulate ? selectedCartItem?.itemName : undefined);
+    setSelectedSize(prePopulate ? selectedCartItem?.itemVariant : undefined);
+    setSelectedQuantity(prePopulate ? selectedCartItem?.quantity : 1);
   };
 
   const addNewItemToCart = () => {
@@ -34,7 +34,7 @@ const ItemSelectionPanel = ({
       quantity: selectedQuantity,
     };
 
-    initializeStates();
+    initializeStates(false);
     addToCart(newItem);
   };
 

@@ -19,7 +19,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "cy:open": "cypress open",
-    "test": "react-scripts test",
+    "cy:run": "cypress run",
+    "test:dev": "react-scripts test",
+    "test": "jest test",
+    "test:e2e": "start-server-and-test start http://localhost:3000 cy:run",
     "test:e2e:dev": "start-server-and-test start http://localhost:3000 cy:open",
     "eject": "react-scripts eject"
   },
