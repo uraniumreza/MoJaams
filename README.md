@@ -1,8 +1,8 @@
-# MoJaams
+# MoJaams 🍕🍕🍕
 
 > Deployed the solution in an ec2 instance; you can check out from here - [MoJaams](http://18.189.116.96)
 
-## Description
+## 📒Description 
 
 Pizza ordering services with the following functionality:
 
@@ -20,7 +20,7 @@ Pizza ordering services with the following functionality:
 5. List orders
    - Provide filtering by status/customer
 
-## Database Modelling
+## 💾 Database Modelling 
 
 I've created 5 tables for the solution of the task. Used `sequelize` with `PostgreSQL` for migration, seed, and querying from the tables.
 
@@ -31,7 +31,7 @@ I've created 5 tables for the solution of the task. Used `sequelize` with `Postg
 5. `OrderItems` is to store all the order-items and their `quantity`. Each order-item has a `status` so that an order-item
    can be `canceled` separately.
 
-## Backend
+## ⚙️ Backend
 
 - **express.js**: To develop the RESTful API service
 - **joi**: To create my own `validator` middleware for `request` object validation
@@ -118,7 +118,7 @@ I wrote extensive unit-tests and integration-tests for the create-order APIs and
 
 ![Code coverage report of Backend service](https://i.imgur.com/7hp5HaF.png)
 
-## Frontend
+## 💅🏼Frontend
 
 - **create-react-app**: To bootstrap the project
 - **prop-types**: For static type checking for all the components
@@ -139,10 +139,12 @@ Everything under `src` directory -
 | src/App.css       | all the styles                      |
 
 ### Tests
-Used `jest` and `react-test-render` to write snapshot tests for all the components. Wrote a cypress spec for `app.js` to test the whole end-to-end test of the order creation process. Here's the snap video: [![e2e-test](https://i.imgur.com/hRyEtGj.png)](https://i.imgur.com/KCG4N9I.mp4)
+Used `jest` and `react-test-render` to write snapshot tests for all the components. Wrote a cypress spec for `app.js` to test the whole end-to-end test of the order creation process. Here's the snap video: 
+
+[![e2e-test](https://i.imgur.com/hRyEtGj.png)](https://i.imgur.com/KCG4N9I.mp4)
 
 
-## Running Project (Locally)
+## 🏃🏼Running Project (Locally)
 
 First, we need to clone the repo -
 
