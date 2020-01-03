@@ -13,7 +13,8 @@
     "database": "mojaams_test",
     "host": "db",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
     "username": "root",

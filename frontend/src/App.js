@@ -17,7 +17,7 @@ const App = () => {
   const [selectedCartItem, setSelectedCartItem] = useState();
   const [placedOrder, setPlacedOrder] = useState();
 
-  const [request, response] = useFetch('http://localhost:8000/api');
+  const [request, response] = useFetch('http://localhost/api');
 
   const mounted = useRef(false);
   useEffect(() => {
