@@ -1,8 +1,10 @@
 # MoJaams
 
+> Deployed the solution in a ec2 instance; here's the public ip that you can checkout - 18.189.116.96
+
 ## Description
 
-Imagine a pizza ordering services with the following functionality:
+A pizza ordering services with the following functionality:
 
 1. Order a pizza:
    - Specify the desired pizza type (margarita, marinara, salami), the number of pizza items and their size (small, medium, large).
@@ -35,9 +37,7 @@ I've created 5 tables for the solution of the task. Used `sequelize` with `postg
 
 ## Backend
 
-I've used express.js to develop the RESTful api service. Also used `joi` from hapi.js to create my own `validator` middleware for
-`request` object validation. Created a global `error-handler` along with extending `Error` object to create a `customError`.
-Used `Jest` and `supertest` for unit testing the `services` and integration testing the routes/end-points.
+I've used express.js to develop the RESTful api service. Also used `joi` from hapi.js to create my own `validator` middleware for `request` object validation. Created a global `error-handler` along with extending `Error` object to create a `customError`. Used `jest` and `supertest` for unit testing the `services` and integration testing the routes/end-points.
 
 ### Folder Structure
 
@@ -55,7 +55,7 @@ Used `Jest` and `supertest` for unit testing the `services` and integration test
 
 ### APIs
 
-[TODO: ADD POSTMAN COLLECTION]
+I've used `postman` during my api-services development time; here's the collection that might help you to test the api end-points easily: https://www.getpostman.com/collections/01660fdeebd64ebabf18
 
 1. Get item list filtered with `status` (_optional_, if not sent fetch all items regardless of the `status`)
 
@@ -117,27 +117,31 @@ order we can use the `patch` api to update the status to _canceled_.
 
 ### Tests
 
-As the order-create is the super important service of this project, I wrote unit-tests for the createOrder service and integration-tests
-for create-order api end-point! Also wrote unit-tests for items and item-variants services. Here's the code-coverage report -
+As the order-create is the super important service of this project, I wrote unit-tests for the createOrder service and integration-tests for create-order api end-point! Also wrote unit-tests for items and item-variants services. Here's the code-coverage report -
 
 ![Code coverage report of Backend service](https://i.imgur.com/7hp5HaF.png)
 
 ## Frontend
 
-I've used `create-react-app` to bootstrap the project. As the main task is to build a somplified UI to place an order; I didn't use `react-router`, I believe it could be a overhead for this task. Also I didn't use any state management tools e.g. `redux`/`mobx`, the reason behind it is also same. The amount of data/state we had to manage for this task is too little to jump into configuring `redux`. I've used `prop-types` for static type checking for all the components. In all of my previous projects I've used `axios` for network request client; but recently the react community is hyped with `use-http` hooks and it's awesome usage, that's why I tried `useFetch` hook from `use-http` in this project.
+I've used `create-react-app` to bootstrap the project. As the main task is to build a somplified UI to place an order; I didn't use `react-router`, I believe it could be overkill for this task. Also I didn't use any state management tools e.g. `redux`/`mobx`, the reason behind it is also same. The amount of data/state we had to manage for this task is too little to jump into configuring `redux`. I've used `prop-types` for static type checking for all the components. In all of my previous projects I've used `axios` for network request client; but recently the react community is hyped with `use-http` hooks and it's awesome usage, that's why I tried `useFetch` hook from `use-http` in this project.
 
 ### Folder Structure
 
 Everything under `src` directory -
 
-| filename      | description                         |
-| ------------- | ----------------------------------- |
-| \_\_tests\_\_ | contains all the snapshot-tests     |
-| components    | contains all components             |
-| App.js        | root component; container-component |
-| App.css       | all the styles                      |
+| filename          | description                         |
+| ----------------- | ----------------------------------- |
+| cypress/e2e       | contains e2e test specs             |
+| src/\_\_tests\_\_ | contains all the snapshot-tests     |
+| src/components    | contains all components             |
+| src/App.js        | root component; container-component |
+| src/App.css       | all the styles                      |
 
-## Running Project
+### Tests
+Used `jest` and `react-test-render` to write snapshot tests for all the components. Wrote a cypress spec for `app.js` to test the whole end-to-end test of the order creation process. Here's the snap - https://i.imgur.com/KCG4N9I.mp4
+
+
+## Running Project (Locally)
 
 First, we need to clone the repo -
 
@@ -158,18 +162,19 @@ docker exec --user postgres mojaams_db /bin/sh -c 'createdb mojaams_test; create
 docker exec mojaams_backend /bin/sh -c "npx sequelize-cli db:migrate; npx sequelize-cli db:seed:all;"
 ```
 
-So, our services are up; we can test now here - [MoJaams](localhost)
+So, our services are up; we can test now here - [MoJaams](http://localhost)
 
 ### Running Tests
 
 #### Backend
 
 ```
-docker exec mojaams_backend /bin/sh -c "npx sequelize-cli db:migrate; npx sequelize-cli db:seed:all;"
+docker exec mojaams_backend /bin/sh -c "npm test"
 ```
 
 #### Frontend
 
 ```
-
+SnapShot tests: docker exec mojaams_frontend /bin/sh -c "cd app; npm test;"
+E2E test: docker exec mojaams_frontend /bin/sh -c "cd app; npm run test:e2e;"
 ```
