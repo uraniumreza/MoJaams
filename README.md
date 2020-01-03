@@ -123,6 +123,7 @@ I wrote extensive unit-tests and integration-tests for the create-order APIs and
 - **create-react-app**: To bootstrap the project
 - **prop-types**: For static type checking for all the components
 - **use-http**: For data-fetching purpose
+- **cypress**, **jest**: For snapshot-tests and end-to-end tests
 
 > As the main task is to build a simplified UI to place an order; I didn't use `react-router`, I believe it could be an overkill for this task. Also, I didn't use any state management tools e.g. `redux`/`mobx`. The amount of data/state we had to manage for this task is too little to jump into configuring `redux`.
 
