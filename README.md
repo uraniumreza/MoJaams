@@ -1,10 +1,10 @@
-# MoJaams
+# MoJaams 🍕🍕🍕
 
-> Deployed the solution in a ec2 instance; here's the public ip that you can checkout - 18.189.116.96
+> Deployed the solution in an ec2 instance; you can check out from here - [MoJaams](http://18.189.116.96)
 
-## Description
+## 📒Description 
 
-A pizza ordering services with the following functionality:
+Pizza ordering services with the following functionality:
 
 1. Order a pizza:
    - Specify the desired pizza type (margarita, marinara, salami), the number of pizza items and their size (small, medium, large).
@@ -14,30 +14,29 @@ A pizza ordering services with the following functionality:
 2. Update an order:
    - There should be a possibility to update the order details (pizzas/number of pizzas/size)
    - There should be a possibility to change the status of order delivery
-   - A order in some delivery statuses (e.g. delivered) could not be updated
+   - An order in some delivery statuses (e.g. delivered) could not be updated
 3. Remove an order
 4. Retrieve an order
 5. List orders
    - Provide filtering by status/customer
 
-## Database Modelling
+## 💾 Database Modelling 
 
-I've created 5 tables for the solution of the task. Used `sequelize` with `postgreSQL` for migration, seed and quering from the tables.
+I've created 5 tables for the solution of the task. Used `sequelize` with `PostgreSQL` for migration, seed, and querying from the tables.
 
-1. `Items` for storing pizza-items related information i.e. `name` and `status`. Default status of each item is `active`.
-   We can `inactive` a particular item, so that end-users won't see a particular item.
-2. `Variants` for storing different variations e.g. large, medium etc. Here, we have only the `name` field.
-3. `ItemVariants` is basically the table to normalize the many-many relationship between `Items` and `Variants`;
-   here we'll have `itemId`, `variantId` and `status` to identify each item variation. Now, this table has one-many relationship
-   with other two tables. For simplicity, I'm assuming that each item will have atleast one variant!
-4. `Orders` to keep customer information i.e. `name` and `address` and the `status` of the order. Initial status of each order
-   is `pending`.
-5. `OrderItems` is to store all the order-items and their `quantity`. Each order-item has a `status` so that a order-item
-   can be `cancelled` separately.
+1. `Items` for storing pizza-items related information i.e. `name` and `status`. The default status of each item is `active`. We can `inactive` a particular item so that end-users won't see a particular item.
+2. `Variants` for storing different variations e.g. large, medium, etc. Here, we have only the `name` field.
+3. `ItemVariants` is the table to normalize the many-many relationship between `Items` and `Variants`; here we'll have `itemId`, `variantId` and `status` to identify each item variation. Now, this table has one-to-many relationship with the other two tables. For simplicity, I'm assuming that each item will have at least one variant!
+4. `Orders` to keep customer information i.e. `name` and `address` and the `status` of the order. The initial status of each order is `pending`.
+5. `OrderItems` is to store all the order-items and their `quantity`. Each order-item has a `status` so that an order-item
+   can be `canceled` separately.
 
-## Backend
+## ⚙️ Backend
 
-I've used express.js to develop the RESTful api service. Also used `joi` from hapi.js to create my own `validator` middleware for `request` object validation. Created a global `error-handler` along with extending `Error` object to create a `customError`. Used `jest` and `supertest` for unit testing the `services` and integration testing the routes/end-points.
+- **express.js**: To develop the RESTful API service
+- **joi**: To create my own `validator` middleware for `request` object validation
+   - Created a global `error-handler` along with extending the `Error` object to create a `customError`
+- **jest** and **supertest**: For unit-testing the `services` and integration testing the routes/end-points
 
 ### Folder Structure
 
@@ -55,7 +54,7 @@ I've used express.js to develop the RESTful api service. Also used `joi` from ha
 
 ### APIs
 
-I've used `postman` during my api-services development time; here's the collection that might help you to test the api end-points easily: https://www.getpostman.com/collections/01660fdeebd64ebabf18
+I've used `postman` during my API-services development time; here's the collection that might help you to test the _API_s easily: [MoJaams Postman API Collection](https://www.getpostman.com/collections/01660fdeebd64ebabf18)
 
 1. Get item list filtered with `status` (_optional_, if not sent fetch all items regardless of the `status`)
 
@@ -69,7 +68,7 @@ GET :: /api/v1/items?status=active
 POST :: /api/v1/items
 ```
 
-3. Create a variant with name; same as item
+3. Create a variant with a name; same as the item creation
 
 ```
 POST :: /api/v1/variants
@@ -105,25 +104,27 @@ GET :: /api/v1/orders
 GET :: /api/v1/orders/:orderId
 ```
 
-8. Update a particular order information; also update order-items information
+8. Update particular order information; also update order-items information
 
 ```
 PATCH :: /api/v1/orders/:orderId
 ```
 
-I didn't implement the api for deleting a particular order. because I believe for any business, deleting information is not
-a very good choice. That's why I've introduced the `status=canceled` to mark a order as deleted/canceled. So, for deleting/canceling an
-order we can use the `patch` api to update the status to _canceled_.
+To remove an order we can use the `patch` API to update the status to _canceled_
 
 ### Tests
 
-As the order-create is the super important service of this project, I wrote unit-tests for the createOrder service and integration-tests for create-order api end-point! Also wrote unit-tests for items and item-variants services. Here's the code-coverage report -
+I wrote extensive unit-tests and integration-tests for the create-order APIs and services. I also wrote a few unit-tests for items and item-variants services. Here's the code-coverage report -
 
 ![Code coverage report of Backend service](https://i.imgur.com/7hp5HaF.png)
 
-## Frontend
+## 💅🏼Frontend
 
-I've used `create-react-app` to bootstrap the project. As the main task is to build a somplified UI to place an order; I didn't use `react-router`, I believe it could be overkill for this task. Also I didn't use any state management tools e.g. `redux`/`mobx`, the reason behind it is also same. The amount of data/state we had to manage for this task is too little to jump into configuring `redux`. I've used `prop-types` for static type checking for all the components. In all of my previous projects I've used `axios` for network request client; but recently the react community is hyped with `use-http` hooks and it's awesome usage, that's why I tried `useFetch` hook from `use-http` in this project.
+- **create-react-app**: To bootstrap the project
+- **prop-types**: For static type checking for all the components
+- **use-http**: For data-fetching purpose
+
+> As the main task is to build a simplified UI to place an order; I didn't use `react-router`, I believe it could be an overkill for this task. Also, I didn't use any state management tools e.g. `redux`/`mobx`. The amount of data/state we had to manage for this task is too little to jump into configuring `redux`.
 
 ### Folder Structure
 
@@ -138,10 +139,12 @@ Everything under `src` directory -
 | src/App.css       | all the styles                      |
 
 ### Tests
-Used `jest` and `react-test-render` to write snapshot tests for all the components. Wrote a cypress spec for `app.js` to test the whole end-to-end test of the order creation process. Here's the snap - https://i.imgur.com/KCG4N9I.mp4
+Used `jest` and `react-test-render` to write snapshot tests for all the components. Wrote a cypress spec for `app.js` to test the whole end-to-end test of the order creation process. Here's the snap video: 
+
+[![e2e-test](https://i.imgur.com/hRyEtGj.png)](https://i.imgur.com/KCG4N9I.mp4)
 
 
-## Running Project (Locally)
+## 🏃🏼Running Project (Locally)
 
 First, we need to clone the repo -
 
@@ -155,14 +158,14 @@ Then, we'll build our docker containers -
 docker-compose up --build
 ```
 
-Wait now all our docker containers are up; and we'll run the database creation (both `dev` and `test`), migration and seed scripts -
+Wait for our docker containers to be up! And then we'll run the database creation (both `dev` and `test`), migration and seed scripts -
 
 ```
 docker exec --user postgres mojaams_db /bin/sh -c 'createdb mojaams_test; createdb mojaams_dev;'
 docker exec mojaams_backend /bin/sh -c "npx sequelize-cli db:migrate; npx sequelize-cli db:seed:all;"
 ```
 
-So, our services are up; we can test now here - [MoJaams](http://localhost)
+So, our services are up; we can test - [MoJaams](http://localhost)
 
 ### Running Tests
 
