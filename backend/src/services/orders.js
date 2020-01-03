@@ -69,7 +69,7 @@ const canUpdateOrder = async (orderId) => {
     raw: true,
   });
 
-  return status !== 'delivered';
+  return status !== 'delivered' && status !== 'canceled';
 };
 
 const updateOrder = async (orderId, items = [], orderMeta) => {
