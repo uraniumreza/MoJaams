@@ -1,6 +1,6 @@
 # MoJaams 🍕🍕🍕
 
-> Deployed the solution in an ec2 instance; you can check out from here - [MoJaams](http://18.189.116.96)
+> Deployed the solution in an ec2 instance; you can check out from here - http://mojaams.uraniumreza.me
 
 ## 📒Description 
 
